@@ -1,0 +1,445 @@
+<!-- Müşteri İletişim Formu -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Müşteri İletişim - Hayat Sigortası</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        
+        .checkbox-item label {
+            margin: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-reset {
+            background: #f0f0f0;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-reset:hover {
+            background: #e0e0e0;
+        }
+        
+        .success-message {
+            display: none;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .error-message {
+            display: none;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 13px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛡️ Hayat Sigortası Bilgi Formu</h1>
+        <p class="subtitle">Lütfen bilgilerinizi doldurun. Size en uygun sigortayı sunmak için iletişime geçeceğiz.</p>
+        
+        <div class="info-box">
+            ℹ️ <strong>Neden Hayat Sigortası?</strong><br>
+            Ailenizin finansal güvenliğini sağlayın. Uygun fiyatlarla kapsamlı teminat alın.
+        </div>
+        
+        <div class="success-message" id="successMessage">
+            ✓ Formu başarıyla gönderdik! 2 saat içinde sizi arayacağız.
+        </div>
+        
+        <div class="error-message" id="errorMessage">
+            ✗ Hata! Lütfen tüm alanları doldurun.
+        </div>
+        
+        <form id="contactForm">
+            <!-- Ad Soyad -->
+            <div class="form-group">
+                <label for="fullName">👤 Ad Soyad *</label>
+                <input 
+                    type="text" 
+                    id="fullName" 
+                    name="fullName" 
+                    placeholder="Adınızı giriniz"
+                    required
+                >
+            </div>
+            
+            <!-- Telefon -->
+            <div class="form-group">
+                <label for="phone">📱 Telefon Numarası *</label>
+                <input 
+                    type="tel" 
+                    id="phone" 
+                    name="phone" 
+                    placeholder="05XX XXX XXXX"
+                    required
+                >
+            </div>
+            
+            <!-- E-posta -->
+            <div class="form-group">
+                <label for="email">📧 E-posta Adresi *</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="ornek@email.com"
+                    required
+                >
+            </div>
+            
+            <!-- Yaş -->
+            <div class="form-group">
+                <label for="age">🎂 Yaş *</label>
+                <input 
+                    type="text" 
+                    id="age" 
+                    name="age" 
+                    placeholder="25"
+                    required
+                >
+            </div>
+            
+            <!-- Şehir -->
+            <div class="form-group">
+                <label for="city">🏙️ Şehir *</label>
+                <select id="city" name="city" required>
+                    <option value="">-- Şehir Seçiniz --</option>
+                    <option value="İstanbul">İstanbul</option>
+                    <option value="Ankara">Ankara</option>
+                    <option value="İzmir">İzmir</option>
+                    <option value="Bursa">Bursa</option>
+                    <option value="Antalya">Antalya</option>
+                    <option value="Gaziantep">Gaziantep</option>
+                    <option value="Konya">Konya</option>
+                    <option value="Adana">Adana</option>
+                    <option value="Diğer">Diğer</option>
+                </select>
+            </div>
+            
+            <!-- Medeni Durum -->
+            <div class="form-group">
+                <label for="maritalStatus">💍 Medeni Durum *</label>
+                <select id="maritalStatus" name="maritalStatus" required>
+                    <option value="">-- Seçiniz --</option>
+                    <option value="Bekâr">Bekâr</option>
+                    <option value="Evli">Evli</option>
+                    <option value="Boşanmış">Boşanmış</option>
+                </select>
+            </div>
+            
+            <!-- İlgi Alanları -->
+            <div class="form-group">
+                <label>🎯 Hangi Sigorta Türlerine İlgi Duyuyorsunuz? *</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input 
+                            type="checkbox" 
+                            id="lifeInsurance" 
+                            name="insuranceType" 
+                            value="Hayat Sigortası"
+                        >
+                        <label for="lifeInsurance">Hayat</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input 
+                            type="checkbox" 
+                            id="healthInsurance" 
+                            name="insuranceType" 
+                            value="Sağlık Sigortası"
+                        >
+                        <label for="healthInsurance">Sağlık</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input 
+                            type="checkbox" 
+                            id="vehicleInsurance" 
+                            name="insuranceType" 
+                            value="Araç Sigortası"
+                        >
+                        <label for="vehicleInsurance">Araç</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input 
+                            type="checkbox" 
+                            id="homeInsurance" 
+                            name="insuranceType" 
+                            value="Ev Sigortası"
+                        >
+                        <label for="homeInsurance">Ev</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bütçe -->
+            <div class="form-group">
+                <label for="budget">💰 Aylık Bütçeniz *</label>
+                <select id="budget" name="budget" required>
+                    <option value="">-- Seçiniz --</option>
+                    <option value="100-500">₺100 - ₺500</option>
+                    <option value="500-1000">₺500 - ₺1.000</option>
+                    <option value="1000-2000">₺1.000 - ₺2.000</option>
+                    <option value="2000+">₺2.000+</option>
+                </select>
+            </div>
+            
+            <!-- Notlar -->
+            <div class="form-group">
+                <label for="notes">📝 Ek Notlar (Opsiyonel)</label>
+                <textarea 
+                    id="notes" 
+                    name="notes" 
+                    placeholder="Eklemek istediğiniz bilgiler..."
+                ></textarea>
+            </div>
+            
+            <!-- Gizlilik Sözleşmesi -->
+            <div class="form-group" style="margin-bottom: 30px;">
+                <div class="checkbox-item">
+                    <input 
+                        type="checkbox" 
+                        id="privacyAgreement" 
+                        name="privacyAgreement" 
+                        required
+                    >
+                    <label for="privacyAgreement">
+                        Kişisel verilerimin işlenmesine ve sizinle iletişime geçilmesine izin veriyorum.
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Butonlar -->
+            <div class="button-group">
+                <button type="submit" class="btn-submit">✓ Formu Gönder</button>
+                <button type="reset" class="btn-reset">↻ Temizle</button>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Form verilerini al
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                age: document.getElementById('age').value,
+                city: document.getElementById('city').value,
+                maritalStatus: document.getElementById('maritalStatus').value,
+                insuranceTypes: Array.from(document.querySelectorAll('input[name="insuranceType"]:checked'))
+                    .map(cb => cb.value)
+                    .join(', '),
+                budget: document.getElementById('budget').value,
+                notes: document.getElementById('notes').value,
+                privacyAgreement: document.getElementById('privacyAgreement').checked
+            };
+            
+            // Validasyon
+            if (!formData.fullName || !formData.phone || !formData.email || !formData.age || 
+                !formData.city || !formData.maritalStatus || !formData.budget || !formData.insuranceTypes) {
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('successMessage').style.display = 'none';
+                setTimeout(() => {
+                    document.getElementById('errorMessage').style.display = 'none';
+                }, 5000);
+                return;
+            }
+            
+            if (!formData.privacyAgreement) {
+                alert('Lütfen gizlilik sözleşmesini kabul ediniz.');
+                return;
+            }
+            
+            // Başarı mesajı göster
+            document.getElementById('successMessage').style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            // Verileri localStorage'a kaydet (demo için)
+            let customers = JSON.parse(localStorage.getItem('customers')) || [];
+            customers.push({
+                ...formData,
+                timestamp: new Date().toLocaleString('tr-TR')
+            });
+            localStorage.setItem('customers', JSON.stringify(customers));
+            
+            // Formu temizle
+            this.reset();
+            
+            // Konsola veri yazdır (gerçek sistemde API'ye gönderilir)
+            console.log('Müşteri Bilgileri:', formData);
+            
+            // 3 saniye sonra başarı mesajını gizle
+            setTimeout(() => {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 3000);
+        });
+        
+        // Başarı mesajını başlangıçta gizle
+        document.getElementById('successMessage').style.display = 'none';
+        document.getElementById('errorMessage').style.display = 'none';
+    </script>
+</body>
+</html>
