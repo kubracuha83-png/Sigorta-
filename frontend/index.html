@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sigorta Arama Motoru</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 Sigorta Arama Motoru</h1>
+            <p>Müşterileri bulun, bağlantı kurun ve satış yapın</p>
+        </header>
+
+        <main>
+            <!-- Arama Bölümü -->
+            <section class="search-section">
+                <form id="searchForm" class="search-form">
+                    <div class="form-group">
+                        <label for="searchInput">Arama Terimi:</label>
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            placeholder="Müşteri adı, e-posta, sigorta türü..."
+                            class="input-field"
+                        >
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cityFilter">Şehir:</label>
+                            <input 
+                                type="text" 
+                                id="cityFilter" 
+                                placeholder="İstanbul, Ankara..."
+                                class="input-field"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="typeFilter">Sigorta Türü:</label>
+                            <select id="typeFilter" class="input-field">
+                                <option value="">Tümü</option>
+                                <option value="Hayat">Hayat Sigortası</option>
+                                <option value="Sağlık">Sağlık Sigortası</option>
+                                <option value="Araç">Araç Sigortası</option>
+                                <option value="Ev">Ev Sigortası</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="minPrice">Min. Fiyat (₺):</label>
+                            <input 
+                                type="number" 
+                                id="minPrice" 
+                                placeholder="0"
+                                class="input-field"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="maxPrice">Max. Fiyat (₺):</label>
+                            <input 
+                                type="number" 
+                                id="maxPrice" 
+                                placeholder="5000"
+                                class="input-field"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="searchType">Arama Türü:</label>
+                            <select id="searchType" class="input-field">
+                                <option value="all">Müşteri + Sigorta</option>
+                                <option value="customers">Sadece Müşteri</option>
+                                <option value="insurances">Sadece Sigorta</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">🔍 Ara</button>
+                        <button type="reset" class="btn btn-secondary">Temizle</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Sonuçlar Bölümü -->
+            <section class="results-section">
+                <div id="resultsContainer" class="results-container">
+                    <!-- Sonuçlar burada gösterilecek -->
+                </div>
+            </section>
+
+            <!-- Müşteri Yönetimi Tabı -->
+            <section class="management-section">
+                <h2>📋 Müşteri Yönetimi</h2>
+                
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="customers-list">Müşteri Listesi</button>
+                    <button class="tab-btn" data-tab="add-customer">Yeni Müşteri Ekle</button>
+                    <button class="tab-btn" data-tab="insurances-list">Sigorta Listesi</button>
+                    <button class="tab-btn" data-tab="add-insurance">Yeni Sigorta Ekle</button>
+                </div>
+
+                <!-- Müşteri Listesi -->
+                <div id="customers-list" class="tab-content active">
+                    <h3>Müşteri Listesi</h3>
+                    <table id="customersTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Ad</th>
+                                <th>E-posta</th>
+                                <th>Telefon</th>
+                                <th>Şehir</th>
+                                <th>Sigorta Türü</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Müşteriler buraya eklenecek -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Yeni Müşteri Ekle -->
+                <div id="add-customer" class="tab-content">
+                    <h3>Yeni Müşteri Ekle</h3>
+                    <form id="customerForm" class="data-form">
+                        <div class="form-group">
+                            <label for="customerName">Ad Soyad:</label>
+                            <input type="text" id="customerName" required class="input-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="customerEmail">E-posta:</label>
+                            <input type="email" id="customerEmail" required class="input-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="customerPhone">Telefon:</label>
+                            <input type="tel" id="customerPhone" required class="input-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="customerCity">Şehir:</label>
+                            <input type="text" id="customerCity" required class="input-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="customerAge">Yaş:</label>
+                            <input type="number" id="customerAge" class="input-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="customerInsuranceType">Sigorta Türü:</label>
+                            <select id="customerInsuranceType" class="input-field">
+                                <option value="">Seçiniz</option>
+                                <option value="Hayat">Hayat Sigortası</option>
+                                <option value="Sağlık">Sağlık Sigortası</option>
+                                <option value="Araç">Araç Sigortası</option>
+                                <option value="Ev">Ev Sigortası</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ekle</button>
+                    </form>
+                </div>
+
+                <!-- Sigorta Listesi -->
+                <div id="insurances-list" class="tab-content">
+                    <h3>Sigorta Listesi</h3>
+                    <table id="insurancesTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Adı</th>
+                                <th>Türü</th>
+                                <th>Fiyat (₺)</th>
+                                <th>Teminat Miktarı</th>
+                                <th>Sağlayıcı</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Sigortalar buraya eklenecek -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Yeni Sigorta Ekle -->
+                <div id="add-insurance" class="tab-content">
+                    <h3>Yeni Sigorta Ekle</h3>
+                    <form id="insuranceForm" class="data-form">
+                        <div class="form-group">
+                            <label for="insuranceName">Adı:</label>
+                            <input type="text" id="insuranceName" required class="input-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="insuranceType">Türü:</label>
+                            <select id="insuranceType" required class="input-field">
+                                <option value="">Seçiniz</option>
+                                <option value="Hayat">Hayat Sigortası</option>
+                                <option value="Sağlık">Sağlık Sigortası</option>
+                                <option value="Araç">Araç Sigortası</option>
+                                <option value="Ev">Ev Sigortası</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="insuranceDescription">Açıklama:</label>
+                            <textarea id="insuranceDescription" class="input-field"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="insurancePrice">Fiyat (₺):</label>
+                            <input type="number" id="insurancePrice" required class="input-field" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="insuranceCoverage">Teminat Miktarı:</label>
+                            <input type="number" id="insuranceCoverage" class="input-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="insuranceCity">Şehir:</label>
+                            <input type="text" id="insuranceCity" class="input-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="insuranceProvider">Sağlayıcı:</label>
+                            <input type="text" id="insuranceProvider" class="input-field">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ekle</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Sigorta Arama Motoru. Tüm hakları saklıdır.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
